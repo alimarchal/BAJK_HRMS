@@ -232,7 +232,7 @@
                                             <option value="" selected="">Please Select</option>
 
                                             @foreach(\App\Models\Qualification::country() as $country)
-                                                <option value="{{$country}}"
+                                                <option value="{{$country}}" @if($country == "Pakistan")  selected @endif
 {{--                                                        @if(old('designation') === $designation->name) selected @endif--}}
                                                 >
                                                     {{$country}}

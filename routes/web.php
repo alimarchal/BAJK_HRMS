@@ -45,7 +45,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
     Route::controller(\App\Http\Controllers\QualificationController::class)->group(function () {
-        Route::get('/employee/{id}/qualification', 'index')->name('qualification.show');
+        Route::get('/employee/{id}/qualification', 'index')->name('employee.qualification.show');
         Route::post('qualification/store', [\App\Http\Controllers\QualificationController::class,'store'])->name('qualification.store');
+        Route::delete('qualification/{qualification}', [\App\Http\Controllers\QualificationController::class,'destroy'])->name('qualification.destroy');
+        Route::get('/employee/{employee}/qualification/{qualification}/edit', [\App\Http\Controllers\QualificationController::class,'edit'])->name('employee.qualification.edit');
+        Route::get('/employee/{employee}/qualification/{qualification}', [\App\Http\Controllers\QualificationController::class,'show'])->name('qualification.show');
+        Route::put('qualification/{qualification}', [\App\Http\Controllers\QualificationController::class,'update'])->name('qualification.update');
     });
 });

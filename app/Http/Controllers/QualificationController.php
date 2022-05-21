@@ -74,9 +74,9 @@ class QualificationController extends Controller
      * @param  \App\Models\Qualification  $qualification
      * @return \Illuminate\Http\Response
      */
-    public function show(Qualification $qualification)
+    public function show(Employee $employee, Qualification $qualification)
     {
-        //
+        return view('qualification.show', compact('employee','qualification'));
     }
 
     /**
@@ -85,9 +85,10 @@ class QualificationController extends Controller
      * @param  \App\Models\Qualification  $qualification
      * @return \Illuminate\Http\Response
      */
-    public function edit(Qualification $qualification)
+    public function edit(Employee $employee, Qualification $qualification)
     {
-        //
+//        $employee_id = $employee->id;
+        return view('qualification.edit', compact('employee','qualification'));
     }
 
     /**
@@ -99,7 +100,14 @@ class QualificationController extends Controller
      */
     public function update(UpdateQualificationRequest $request, Qualification $qualification)
     {
-        //
+        if ($request->hasFile('attachment_1')) {
+            $path = $request->file('attachment_1')->store('', 'public');
+            $request->merge(['attachment' => $path]);
+        }
+
+        $qualification->update($request->all());
+        session()->flash('message', 'Qualification successfully updated.');
+        return redirect()->route('employee.qualification.edit',[$qualification->employee_id, $qualification->id]);
     }
 
     /**
@@ -110,6 +118,9 @@ class QualificationController extends Controller
      */
     public function destroy(Qualification $qualification)
     {
-        //
+        $employee_id = $qualification->employee->id;
+        $qualification->delete();
+        session()->flash('message', 'Qualification successfully deleted.');
+        return redirect()->route('employee.qualification.show',$employee_id);
     }
 }

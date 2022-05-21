@@ -477,16 +477,17 @@ class Qualification extends Model
     public static function province_state(): array
     {
         $province_state = [
-            'Pubjab',
-            'Balochistan',
-            'Khyber Pakhtunkhwa',
-            'Sindh',
-            'Islamabad Capital Territory',
             'Azad Jammu and Kashmir',
             'Gilgit-Baltistan',
+            'Islamabad Capital Territory',
+            'Pubjab',
+            'Sindh',
+            'Khyber Pakhtunkhwa',
+            'Baluchistan',
+            'Other/Not Listed',
         ];
 
-        sort($province_state);
+//        sort($province_state);
         return $province_state;
     }
 
